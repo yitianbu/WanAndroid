@@ -1,4 +1,4 @@
-package wanandroid.weifeng.com.wanandroid.repositiry.response;
+package com.weifeng.wanandroid.repositiry.response;
 
 import java.io.Serializable;
 import java.util.List;

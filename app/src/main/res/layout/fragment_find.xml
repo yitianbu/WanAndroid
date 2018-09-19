@@ -3,11 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.FindFragment">
+    tools:context="com.weifeng.wanandroid.Fragment.FindFragment">
 
-    <TextView
+    <com.andview.refreshview.XRefreshView
+        android:id="@+id/content_xRefreshView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Find" />
+        android:background="@android:color/white"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/content_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            />
+
+    </com.andview.refreshview.XRefreshView>
 
 </LinearLayout>

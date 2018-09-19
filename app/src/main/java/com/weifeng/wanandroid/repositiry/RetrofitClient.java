@@ -1,4 +1,4 @@
-package wanandroid.weifeng.com.wanandroid.repositiry;
+package com.weifeng.wanandroid.repositiry;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

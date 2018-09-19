@@ -1,4 +1,4 @@
-package wanandroid.weifeng.com.wanandroid.Fragment;
+package com.weifeng.wanandroid.Fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,15 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import wanandroid.weifeng.com.wanandroid.R;
+import com.weifeng.wanandroid.R;
 
 
-public class NavigationFragment extends Fragment {
-
+public class MineFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_navigation, container, false);
+        return inflater.inflate(R.layout.fragment_mine, container, false);
     }
 
 

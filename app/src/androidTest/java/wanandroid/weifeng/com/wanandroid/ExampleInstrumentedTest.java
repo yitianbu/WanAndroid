@@ -1,4 +1,4 @@
-package wanandroid.weifeng.com.wanandroid;
+package com.weifeng.wanandroid;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("wanandroid.weifeng.com.wanandroid", appContext.getPackageName());
+        assertEquals("com.weifeng.wanandroid", appContext.getPackageName());
     }
 }

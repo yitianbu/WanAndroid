@@ -1,9 +1,10 @@
-package wanandroid.weifeng.com.wanandroid.repositiry;
+package com.weifeng.wanandroid.repositiry;
+
+import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import wanandroid.weifeng.com.wanandroid.repositiry.response.ListArticlesResponse;
 
 /**
  * @anthor weifeng

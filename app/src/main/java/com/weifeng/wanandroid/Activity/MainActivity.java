@@ -1,4 +1,4 @@
-package wanandroid.weifeng.com.wanandroid.Activity;
+package com.weifeng.wanandroid.Activity;
 
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +10,17 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
+import com.weifeng.wanandroid.Fragment.NavigationFragment;
+import com.weifeng.wanandroid.Fragment.ProjectFragment;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import wanandroid.weifeng.com.wanandroid.Fragment.FindFragment;
-import wanandroid.weifeng.com.wanandroid.Fragment.MineFragment;
-import wanandroid.weifeng.com.wanandroid.Fragment.NavigationFragment;
-import wanandroid.weifeng.com.wanandroid.Fragment.ProjectFragment;
-import wanandroid.weifeng.com.wanandroid.R;
+import com.weifeng.wanandroid.Fragment.FindFragment;
+import com.weifeng.wanandroid.Fragment.MineFragment;
+
+import com.weifeng.wanandroid.R;
 
 public class MainActivity extends AppCompatActivity implements TabHost.OnTabChangeListener{
     public static final String TAG_FIND ="find";

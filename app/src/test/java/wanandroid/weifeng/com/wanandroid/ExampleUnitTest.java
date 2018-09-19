@@ -1,4 +1,4 @@
-package wanandroid.weifeng.com.wanandroid;
+package com.weifeng.wanandroid;
 
 import org.junit.Test;
 
