@@ -1,8 +1,8 @@
 package com.weifeng.wanandroid.Activity;
 
 import android.support.v4.app.FragmentTabHost;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,11 +12,6 @@ import android.widget.TextView;
 
 import com.weifeng.wanandroid.Fragment.NavigationFragment;
 import com.weifeng.wanandroid.Fragment.ProjectFragment;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.weifeng.wanandroid.Fragment.FindFragment;
 import com.weifeng.wanandroid.Fragment.MineFragment;
 
@@ -27,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     public static final String TAG_PROJECT = "project";
     public static final String TAG_NAVIGATION = "navigation";
     public static final String TAG_MINE ="mine";
-    public List<String> TAGS = new ArrayList<>(Arrays.asList(TAG_FIND,TAG_PROJECT,TAG_NAVIGATION,TAG_MINE));
 
     private FragmentTabHost mTabHost;
     private TabWidget mTabWidget;
@@ -81,13 +75,13 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
 
     @Override
     public void onTabChanged(String tabId) {
-        if(TAG_FIND == tabId) {
+        if(TAG_FIND.equals(tabId)) {
             mTabHost.setCurrentTab(0);
-        }else if(TAG_FIND == TAG_PROJECT){
+        }else if(TAG_PROJECT.equals(tabId)){
             mTabHost.setCurrentTab(1);
-        }else if(TAG_FIND == TAG_NAVIGATION){
+        }else if(TAG_NAVIGATION.equals(tabId)){
             mTabHost.setCurrentTab(2);
-        }else if(TAG_FIND == TAG_MINE){
+        }else if(TAG_MINE.equals(tabId)){
             mTabHost.setCurrentTab(3);
         }
     }

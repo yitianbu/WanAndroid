@@ -15,7 +15,7 @@ public class ListArticlesResponse implements Serializable{
 
     public static class Data implements Serializable{
         public int curpage;
-        public List<Item> datas;
+        public List<ArticleItem> datas;
         public int offset;
         public boolean over;
         public int pagecount;
@@ -23,24 +23,24 @@ public class ListArticlesResponse implements Serializable{
         public int total;
     }
 
-    public static class Item implements Serializable{
+    public static class ArticleItem implements Serializable{
         public String apklink;
         public String author;
         public int chapterid;
-        public String chaptername;
+        public String chapterName;
         public boolean collect;
         public int courseid;
         public String desc;
-        public String envelopepic;
+        public String envelopePic;
         public boolean fresh;
         public int id;
         public String link;
         public String nicedate;
         public String origin;
         public String projectlink;
-        public long publishtime;
+        public long publishTime;
         public int superchapterid;
-        public String superchaptername;
+        public String superChapterName;
         public List<Object> tags;
         public String title;
         public int type;

@@ -2,9 +2,10 @@
 apply from: "${rootDir.absolutePath}/project_config.gradle"
 buildscript {
     repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
         google()
         jcenter()
-
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
@@ -13,10 +14,13 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
+        maven{ url "https://jitpack.io" }
+        maven {
+            url "https://maven.google.com"
+        }
         google()
         jcenter()
-        maven{url 'https://maven.google.com'}
-        maven { url "https://jitpack.io" }
     }
 }
 
