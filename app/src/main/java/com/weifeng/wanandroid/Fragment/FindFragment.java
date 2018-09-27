@@ -12,8 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.andview.refreshview.XRefreshView;
+import com.andview.refreshview.XRefreshViewFooter;
 import com.weifeng.wanandroid.Adapter.ListArticlesAdapter;
+import com.weifeng.wanandroid.View.ArticlesHeadView;
 import com.weifeng.wanandroid.repositiry.APIService;
 import com.weifeng.wanandroid.repositiry.RetrofitClient;
 import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
@@ -66,8 +70,10 @@ public class FindFragment extends Fragment {
         this.rootView = view;
         xRefreshView = view.findViewById(R.id.content_xRefreshView);
         xRefreshView.setPullRefreshEnable(false);    //禁止下拉刷新
+        xRefreshView.setPullLoadEnable(true);
         xRefreshView.setAutoLoadMore(true);
-        xRefreshView.setAutoRefresh(true);
+        xRefreshView.enableRecyclerViewPullUp(true);
+        xRefreshView.enablePullUpWhenLoadCompleted(true);
         xRefreshView.setXRefreshViewListener(new XRefreshView.XRefreshViewListener() {
             @Override
             public void onRefresh() {
@@ -117,6 +123,7 @@ public class FindFragment extends Fragment {
         });
         contentRV= view.findViewById(R.id.content_rv);
         listArticlesAdapter = new ListArticlesAdapter(rootView.getContext());
+        listArticlesAdapter.setCustomLoadMoreView(new XRefreshViewFooter(view.getContext()));
         contentRV.setAdapter(listArticlesAdapter);
         contentRV.addItemDecoration(new DividerItemDecoration(rootView.getContext(),DividerItemDecoration.VERTICAL));
         contentRV.setLayoutManager(new LinearLayoutManager(rootView.getContext()));

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -27,7 +28,7 @@ import java.util.List;
  * @anthor weifeng
  * @time 2018/9/19 下午3:10
  */
-public class ListArticlesAdapter extends RecyclerView.Adapter {
+public class ListArticlesAdapter extends BaseRecyclerAdapter<ListArticlesAdapter.ArticleViewHolder> {
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_CONTENT = 1;
 
@@ -38,14 +39,19 @@ public class ListArticlesAdapter extends RecyclerView.Adapter {
         this.context = context;
     }
 
-    @NonNull
+
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ArticleViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.ll_article_item, parent, false));
+    public ArticleViewHolder getViewHolder(View view) {
+        return new ArticleViewHolder(view,false);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType, boolean isItem) {
+        return new ArticleViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.ll_article_item, parent,false),true);
+    }
+
+    @Override
+    public void onBindViewHolder(ArticleViewHolder holder, int position, boolean isItem) {
         ArticleViewHolder articleHolder = (ArticleViewHolder) holder;
         articleHolder.authorNameTv.setText(articleItems.get(position).author);
         articleHolder.publishTimeTv.setText(TimeUtil.getDate(articleItems.get(position).publishTime));
@@ -59,11 +65,12 @@ public class ListArticlesAdapter extends RecyclerView.Adapter {
         }else {
             articleHolder.envelopePicImg.setVisibility(View.GONE);
         }
-
     }
 
+
+
     @Override
-    public int getItemCount() {
+    public int getAdapterItemCount() {
         return articleItems.size();
     }
 
@@ -80,14 +87,16 @@ public class ListArticlesAdapter extends RecyclerView.Adapter {
         public TextView articleNameTv;
         public ImageView envelopePicImg;
 
-        public ArticleViewHolder(View itemView) {
+        public ArticleViewHolder(View itemView,boolean isItem) {
             super(itemView);
-            authorAvatarImg = itemView.findViewById(R.id.img_author_avatar);
-            authorNameTv = itemView.findViewById(R.id.tv_author_name);
-            publishTimeTv = itemView.findViewById(R.id.tv_publish_time);
-            chapterNameTv = itemView.findViewById(R.id.tv_chapter_name);
-            articleNameTv = itemView.findViewById(R.id.tv_article_name);
-            envelopePicImg = itemView.findViewById(R.id.img_envelope_pic);
+            if (isItem) {
+                authorAvatarImg = itemView.findViewById(R.id.img_author_avatar);
+                authorNameTv = itemView.findViewById(R.id.tv_author_name);
+                publishTimeTv = itemView.findViewById(R.id.tv_publish_time);
+                chapterNameTv = itemView.findViewById(R.id.tv_chapter_name);
+                articleNameTv = itemView.findViewById(R.id.tv_article_name);
+                envelopePicImg = itemView.findViewById(R.id.img_envelope_pic);
+            }
         }
     }
 }
