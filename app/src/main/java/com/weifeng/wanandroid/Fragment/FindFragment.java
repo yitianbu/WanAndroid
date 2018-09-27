@@ -12,12 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.andview.refreshview.XRefreshView;
 import com.andview.refreshview.XRefreshViewFooter;
 import com.weifeng.wanandroid.Adapter.ListArticlesAdapter;
-import com.weifeng.wanandroid.View.ArticlesHeadView;
 import com.weifeng.wanandroid.repositiry.APIService;
 import com.weifeng.wanandroid.repositiry.RetrofitClient;
 import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
