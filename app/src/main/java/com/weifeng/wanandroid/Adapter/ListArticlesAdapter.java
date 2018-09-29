@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.weifeng.wanandroid.R;
 import com.weifeng.wanandroid.Utils.TimeUtil;
+import com.weifeng.wanandroid.model.ArticleContentItem;
 import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
 
 import java.util.ArrayList;
@@ -29,10 +30,8 @@ import java.util.List;
  * @time 2018/9/19 下午3:10
  */
 public class ListArticlesAdapter extends BaseRecyclerAdapter<ListArticlesAdapter.ArticleViewHolder> {
-    public static final int ITEM_TYPE_HEADER = 0;
-    public static final int ITEM_TYPE_CONTENT = 1;
 
-    private List<ListArticlesResponse.ArticleItem> articleItems = new ArrayList<>();
+    private List<ArticleContentItem> articleItems = new ArrayList<>();
     private Context context;
 
     public ListArticlesAdapter(Context context) {
@@ -74,7 +73,7 @@ public class ListArticlesAdapter extends BaseRecyclerAdapter<ListArticlesAdapter
         return articleItems.size();
     }
 
-    public void setArticleItems(List<ListArticlesResponse.ArticleItem> articleItems) {
+    public void setArticleItems(List<ArticleContentItem> articleItems) {
         this.articleItems.addAll(articleItems);
         notifyDataSetChanged();
     }
