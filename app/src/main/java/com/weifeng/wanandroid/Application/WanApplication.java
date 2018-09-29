@@ -1,6 +1,9 @@
 package com.weifeng.wanandroid.Application;
 
 import android.app.Application;
+import android.content.Context;
+
+import com.weifeng.wanandroid.Utils.Globals;
 
 /**
  * @anthor weifeng
@@ -8,4 +11,8 @@ import android.app.Application;
  */
 public class WanApplication extends Application {
 
+   public static Context getContext(){
+       return Globals.getApplication();
+   }
+   
 }
