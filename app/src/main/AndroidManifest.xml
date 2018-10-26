@@ -5,6 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,8 +28,16 @@
         </activity>
         <activity
             android:name=".Activity.WebViewActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_web_view"></activity>
+            android:label="@string/title_activity_web_view"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

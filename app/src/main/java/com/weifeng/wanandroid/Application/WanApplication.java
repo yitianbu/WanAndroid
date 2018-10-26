@@ -14,5 +14,5 @@ public class WanApplication extends Application {
    public static Context getContext(){
        return Globals.getApplication();
    }
-   
+
 }

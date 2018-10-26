@@ -89,6 +89,11 @@ public class ListArticlesAdapter extends BaseRecyclerAdapter<ListArticlesAdapter
         notifyDataSetChanged();
     }
 
+    public void clearArticeItems(){
+        this.articleItems.clear();
+        notifyDataSetChanged();
+    }
+
     public static final class ArticleViewHolder extends RecyclerView.ViewHolder {
         public ImageView authorAvatarImg;
         public TextView authorNameTv;

@@ -18,6 +18,8 @@ import com.andview.refreshview.XRefreshViewFooter;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.weifeng.wanandroid.Activity.LoginActivity;
+import com.weifeng.wanandroid.Activity.RegisterActivity;
 import com.weifeng.wanandroid.Activity.WebViewActivity;
 import com.weifeng.wanandroid.Adapter.ListArticlesAdapter;
 import com.weifeng.wanandroid.Holder.LocalImageHolderView;
@@ -65,6 +67,7 @@ public class FindFragment extends Fragment implements OnItemClickListener {
     }
 
     private void loadHeadData() {
+        page = 0;
         RetrofitClient.getInstance().getService(APIService.class).getArticlesHead().enqueue(new Callback<ArticlesHeadResponse>() {
             @Override
             public void onResponse(Call<ArticlesHeadResponse> call, Response<ArticlesHeadResponse> response) {
@@ -91,6 +94,9 @@ public class FindFragment extends Fragment implements OnItemClickListener {
             @Override
             public void onResponse(Call<ListArticlesResponse> call, Response<ListArticlesResponse> response) {
                 if (200 == response.code()) {
+                    if(page == 0){
+                        listArticlesAdapter.clearArticeItems();
+                    }
                     page++;
                     ListArticlesResponse listArticlesResponse = response.body();
                     listArticlesAdapter.setArticleItems(listArticlesResponse.data.datas);
@@ -117,6 +123,8 @@ public class FindFragment extends Fragment implements OnItemClickListener {
         xRefreshView.enableRecyclerViewPullUp(true);
         xRefreshView.enablePullUpWhenLoadCompleted(true);
         xRefreshView.setXRefreshViewListener(new XRefreshView.XRefreshViewListener() {
+
+
             @Override
             public void onRefresh() {
 
@@ -180,13 +188,15 @@ public class FindFragment extends Fragment implements OnItemClickListener {
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
                 .setOnItemClickListener(this)
                 .setCanLoop(true)
-                .startTurning(2000);
+                .startTurning(2500);
     }
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(this.getActivity(), WebViewActivity.class);
-        intent.putExtra("url",articleHeadItemList.get(position).getUrl());
+//        Intent intent = new Intent(this.getActivity(), WebViewActivity.class);
+//        intent.putExtra("url",articleHeadItemList.get(position).getUrl());
+//        startActivity(intent);
+        Intent intent = new Intent(this.getActivity(),LoginActivity.class);
         startActivity(intent);
     }
 }
