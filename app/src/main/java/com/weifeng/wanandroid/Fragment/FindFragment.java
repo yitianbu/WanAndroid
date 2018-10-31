@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Fragment;
+package com.weifeng.wanandroid.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,15 +18,13 @@ import com.andview.refreshview.XRefreshViewFooter;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
-import com.weifeng.wanandroid.Activity.LoginActivity;
-import com.weifeng.wanandroid.Activity.RegisterActivity;
-import com.weifeng.wanandroid.Activity.WebViewActivity;
-import com.weifeng.wanandroid.Adapter.ListArticlesAdapter;
-import com.weifeng.wanandroid.Holder.LocalImageHolderView;
+import com.weifeng.wanandroid.activity.LoginActivity;
+import com.weifeng.wanandroid.adapter.ListArticlesAdapter;
+import com.weifeng.wanandroid.holder.LocalImageHolderView;
 import com.weifeng.wanandroid.model.ArticleHeadItem;
+import com.weifeng.wanandroid.repositiry.response.ArticlesHeadResponse;
 import com.weifeng.wanandroid.repositiry.APIService;
 import com.weifeng.wanandroid.repositiry.RetrofitClient;
-import com.weifeng.wanandroid.repositiry.response.ArticlesHeadResponse;
 import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
 
 import retrofit2.Call;

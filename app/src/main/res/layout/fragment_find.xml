@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.weifeng.wanandroid.Fragment.FindFragment">
+    tools:context="com.weifeng.wanandroid.fragment.FindFragment">
 
     <com.andview.refreshview.XRefreshView
         android:id="@+id/content_xRefreshView"

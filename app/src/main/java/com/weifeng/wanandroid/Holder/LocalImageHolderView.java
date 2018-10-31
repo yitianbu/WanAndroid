@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Holder;
+package com.weifeng.wanandroid.holder;
 
 import android.view.View;
 import android.widget.ImageView;

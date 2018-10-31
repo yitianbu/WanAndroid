@@ -1,6 +1,5 @@
-package com.weifeng.wanandroid.Fragment;
+package com.weifeng.wanandroid.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,12 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.weifeng.wanandroid.Adapter.MineViewPagerAdapter;
+import com.weifeng.wanandroid.adapter.MineViewPagerAdapter;
 import com.weifeng.wanandroid.R;
-import com.weifeng.wanandroid.Utils.DensityUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.weifeng.wanandroid.utils.DensityUtil;
 
 
 public class MineFragment extends Fragment {

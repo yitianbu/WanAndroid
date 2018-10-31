@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Fragment;
+package com.weifeng.wanandroid.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

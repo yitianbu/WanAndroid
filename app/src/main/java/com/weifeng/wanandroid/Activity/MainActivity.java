@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Activity;
+package com.weifeng.wanandroid.activity;
 
 import android.support.v4.app.FragmentTabHost;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
-import com.weifeng.wanandroid.Fragment.NavigationFragment;
-import com.weifeng.wanandroid.Fragment.ProjectFragment;
-import com.weifeng.wanandroid.Fragment.FindFragment;
-import com.weifeng.wanandroid.Fragment.MineFragment;
+import com.weifeng.wanandroid.fragment.NavigationFragment;
+import com.weifeng.wanandroid.fragment.ProjectFragment;
+import com.weifeng.wanandroid.fragment.FindFragment;
+import com.weifeng.wanandroid.fragment.MineFragment;
 
 import com.weifeng.wanandroid.R;
 

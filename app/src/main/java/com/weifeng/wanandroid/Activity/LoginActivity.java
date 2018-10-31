@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Activity;
+package com.weifeng.wanandroid.activity;
 
 
 import android.app.Activity;
@@ -12,14 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.weifeng.wanandroid.R;
-import com.weifeng.wanandroid.model.UserBean;
 import com.weifeng.wanandroid.repositiry.APIService;
 import com.weifeng.wanandroid.repositiry.RetrofitClient;
 import com.weifeng.wanandroid.repositiry.response.LoginResponse;
-import com.weifeng.wanandroid.repositiry.response.RegisterResponse;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

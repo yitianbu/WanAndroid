@@ -1,28 +1,23 @@
-package com.weifeng.wanandroid.Adapter;
+package com.weifeng.wanandroid.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.weifeng.wanandroid.Activity.WebViewActivity;
+import com.weifeng.wanandroid.activity.WebViewActivity;
 import com.weifeng.wanandroid.R;
-import com.weifeng.wanandroid.Utils.TimeUtil;
+import com.weifeng.wanandroid.utils.TimeUtil;
 import com.weifeng.wanandroid.model.ArticleContentItem;
-import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
 
 import java.util.ArrayList;
 import java.util.List;

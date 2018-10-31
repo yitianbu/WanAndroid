@@ -1,9 +1,8 @@
 package com.weifeng.wanandroid.repositiry;
-
-import com.weifeng.wanandroid.model.UserBean;
 import com.weifeng.wanandroid.repositiry.response.ArticlesHeadResponse;
 import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
 import com.weifeng.wanandroid.repositiry.response.LoginResponse;
+import com.weifeng.wanandroid.repositiry.response.NaviResponse;
 import com.weifeng.wanandroid.repositiry.response.RegisterResponse;
 
 import retrofit2.Call;
@@ -45,4 +44,12 @@ public interface APIService {
     @POST("user/login")
     @FormUrlEncoded
     Call<LoginResponse> postLogin(@Field("username") String username, @Field("password") String password);
+
+
+    /**
+     * 获取导航
+     */
+    @GET("/navi/json")
+    Call<NaviResponse> getNavis();
+
 }

@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Adapter;
+package com.weifeng.wanandroid.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

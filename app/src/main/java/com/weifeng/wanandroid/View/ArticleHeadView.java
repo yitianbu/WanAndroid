@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.View;
+package com.weifeng.wanandroid.view;
 
 import android.content.Context;
 import android.view.View;

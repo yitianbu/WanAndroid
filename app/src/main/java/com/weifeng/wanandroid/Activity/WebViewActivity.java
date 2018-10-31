@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Activity;
+package com.weifeng.wanandroid.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

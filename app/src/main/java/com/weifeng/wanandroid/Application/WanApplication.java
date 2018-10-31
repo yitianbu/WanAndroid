@@ -1,9 +1,9 @@
-package com.weifeng.wanandroid.Application;
+package com.weifeng.wanandroid.application;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.weifeng.wanandroid.Utils.Globals;
+import com.weifeng.wanandroid.utils.Globals;
 
 /**
  * @anthor weifeng

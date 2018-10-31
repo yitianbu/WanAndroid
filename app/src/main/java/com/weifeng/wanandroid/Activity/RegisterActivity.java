@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Activity;
+package com.weifeng.wanandroid.activity;
 
 import android.os.Bundle;
 import android.app.Activity;

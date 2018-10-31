@@ -1,4 +1,4 @@
-package com.weifeng.wanandroid.Utils;
+package com.weifeng.wanandroid.utils;
 
 import java.util.Calendar;
 import java.util.Date;
