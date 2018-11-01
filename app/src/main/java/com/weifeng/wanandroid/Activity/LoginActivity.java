@@ -15,6 +15,7 @@ import com.weifeng.wanandroid.R;
 import com.weifeng.wanandroid.repositiry.APIService;
 import com.weifeng.wanandroid.repositiry.RetrofitClient;
 import com.weifeng.wanandroid.repositiry.response.LoginResponse;
+import com.weifeng.wanandroid.utils.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +34,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+
     }
 
     private void initView() {
@@ -55,6 +57,8 @@ public class LoginActivity extends Activity {
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if (LOGIN_SUCCESS == response.body().errorCode) {
                             Toast.makeText(LoginActivity.this, "success" + response.toString(), Toast.LENGTH_SHORT).show();
+                            Preferences.getInstance().setUserName(userNameEdit.getText().toString());
+                            Preferences.getInstance().setUserPassword(passwordEdit.getText().toString());
                         } else {
                             Toast.makeText(LoginActivity.this, response.body().errorMsg, Toast.LENGTH_LONG).show();
                         }

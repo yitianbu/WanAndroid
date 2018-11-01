@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.weifeng.wanandroid.adapter.MineViewPagerAdapter;
 import com.weifeng.wanandroid.R;
 import com.weifeng.wanandroid.utils.DensityUtil;
+import com.weifeng.wanandroid.utils.Preferences;
 
 
 public class MineFragment extends Fragment {
@@ -54,6 +56,15 @@ public class MineFragment extends Fragment {
         }
         initViewPager();
         initListener();
+        initUserInfo();
+    }
+
+    private void initUserInfo() {
+        if(!TextUtils.isEmpty(Preferences.getInstance().getUserName()) && Preferences.getInstance().getCookies()!=null){
+            mNickNameTv.setText(Preferences.getInstance().getUserName());
+        }else {
+            mNickNameTv.setText("未登录");
+        }
     }
 
     private void initListener() {
