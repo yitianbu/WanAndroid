@@ -53,10 +53,11 @@ public class MineFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if(rootView == null){
             initView(view);
+            initViewPager();
+            initListener();
+            initUserInfo();
+            rootView = view;
         }
-        initViewPager();
-        initListener();
-        initUserInfo();
     }
 
     private void initUserInfo() {
@@ -72,8 +73,6 @@ public class MineFragment extends Fragment {
 
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//                iv_parallax.setTranslationY(verticalOffset);
-                //200是appbar的高度
                 if (Math.abs(verticalOffset) == DensityUtil.dp2px(200) - mToolbar.getHeight()) {//关闭
                     buttonBarLayout.setVisibility(View.VISIBLE);
                     mCollaspsingToolBarLayout.setContentScrimResource(R.color.white);
@@ -89,15 +88,12 @@ public class MineFragment extends Fragment {
 
     private void initViewPager() {
         mPagerAdapter  = new MineViewPagerAdapter((this.getActivity()).getSupportFragmentManager()) ;
-        mPagerAdapter.addFragment(new Fragment_One(), "收藏");
+        mPagerAdapter.addFragment(new CollectFragment(), "收藏");
         mPagerAdapter.addFragment(new Fragment_One(), "ToDo");
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
-        mViewPager.setCurrentItem(1);
-//        for (int i = 0; i <mPagerAdapter.getCount() ; i++) {
-//            mTabLayout.addTab(mTabLayout.newTab().setText(mPagerAdapter.getPageTitle(i)));
-//        }
+        mViewPager.setCurrentItem(0);
     }
 
     private void initView(View view) {
@@ -116,7 +112,8 @@ public class MineFragment extends Fragment {
         mViewPager = view.findViewById(R.id.view_pager);
         ((AppCompatActivity)this.getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity)this.getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
     }
+
+
 
 }

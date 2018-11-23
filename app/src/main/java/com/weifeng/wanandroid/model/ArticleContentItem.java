@@ -17,6 +17,7 @@ public class ArticleContentItem  implements Serializable {
     public String desc;
     public String envelopePic;
     public boolean fresh;
+    public int originId;
     public int id;
     public String link;
     public String nicedate;

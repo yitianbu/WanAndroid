@@ -7,15 +7,23 @@
     <RelativeLayout
         android:id="@+id/rl_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/wf_title_bar_height"
-        >
+        android:layout_height="@dimen/wf_title_bar_height">
 
         <ImageView
             android:id="@+id/img_back_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:src="@drawable/title_btn_back" />
+
+        <ImageView
+            android:id="@+id/img_collect_article"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/toolbar_article_collect_selector" />
 
 
     </RelativeLayout>
@@ -32,7 +40,7 @@
 
     <WebView
         android:id="@+id/webview"
-        android:layout_below="@id/progressbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/progressbar" />
 </RelativeLayout>

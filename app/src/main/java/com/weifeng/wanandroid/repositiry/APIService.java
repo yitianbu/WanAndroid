@@ -1,5 +1,7 @@
 package com.weifeng.wanandroid.repositiry;
 import com.weifeng.wanandroid.repositiry.response.ArticlesHeadResponse;
+import com.weifeng.wanandroid.repositiry.response.CollectArticlesInStationResponse;
+import com.weifeng.wanandroid.repositiry.response.CollectArticlesResponse;
 import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
 import com.weifeng.wanandroid.repositiry.response.LoginResponse;
 import com.weifeng.wanandroid.repositiry.response.NaviResponse;
@@ -51,5 +53,31 @@ public interface APIService {
      */
     @GET("/navi/json")
     Call<NaviResponse> getNavis();
+
+    /**
+     * 收藏站内文章
+     */
+    @POST("/lg/collect/{id}/json")
+    Call<CollectArticlesInStationResponse> collectStationArticle(@Path("id") int id);
+
+    /**
+     * 取消站内文章收藏
+     */
+    @POST("/lg/uncollect_originId/{id}/json")
+    Call<CollectArticlesInStationResponse> cancelCollectStationArticle(@Path("id") int id);
+
+
+    /**
+     * 收藏站外文章
+     */
+    @POST("/lg/collect/add/json")
+    @FormUrlEncoded
+    Call<CollectArticlesInStationResponse> collectOutStationArticle(@Field("title") String title, @Field("author") String author, @Field("link") String link);
+
+    /**
+     * 收藏文章列表
+     */
+    @GET("/lg/collect/list/{page}/json")
+    Call<CollectArticlesResponse> getCollectArticleList(@Path("page") int page);
 
 }
