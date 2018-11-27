@@ -5,6 +5,9 @@ import com.weifeng.wanandroid.repositiry.response.CollectArticlesResponse;
 import com.weifeng.wanandroid.repositiry.response.ListArticlesResponse;
 import com.weifeng.wanandroid.repositiry.response.LoginResponse;
 import com.weifeng.wanandroid.repositiry.response.NaviResponse;
+import com.weifeng.wanandroid.repositiry.response.ProjectCategoryItemResponse;
+import com.weifeng.wanandroid.repositiry.response.ProjectCategoryResponse;
+import com.weifeng.wanandroid.repositiry.response.ProjectResponse;
 import com.weifeng.wanandroid.repositiry.response.RegisterResponse;
 
 import retrofit2.Call;
@@ -13,6 +16,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @anthor weifeng
@@ -79,5 +83,17 @@ public interface APIService {
      */
     @GET("/lg/collect/list/{page}/json")
     Call<CollectArticlesResponse> getCollectArticleList(@Path("page") int page);
+
+    /**
+     * 项目分类
+     */
+    @GET("/project/tree/json")
+    Call<ProjectCategoryResponse> getProjectCategory();
+
+    /**
+     * 项目列表数据
+     */
+    @GET("/project/list/{id}/json")
+    Call<ProjectResponse> getProjectCategoryList(@Path("id") int id, @Query("cid") String cid);
 
 }

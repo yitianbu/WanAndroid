@@ -1,9 +1,7 @@
 package com.weifeng.wanandroid.adapter;
 
-import android.app.AlertDialog;
-import android.app.Application;
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -21,26 +17,19 @@ import com.bumptech.glide.request.RequestOptions;
 import com.weifeng.wanandroid.R;
 import com.weifeng.wanandroid.activity.WebViewActivity;
 import com.weifeng.wanandroid.model.ArticleContentItem;
-import com.weifeng.wanandroid.repositiry.APIService;
-import com.weifeng.wanandroid.repositiry.RetrofitClient;
-import com.weifeng.wanandroid.repositiry.callback.ThorCallback;
-import com.weifeng.wanandroid.repositiry.response.CollectArticlesInStationResponse;
-import com.weifeng.wanandroid.utils.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import static com.weifeng.wanandroid.activity.WebViewActivity.ARTICLE_COLLECT;
+import static com.weifeng.wanandroid.activity.WebViewActivity.ARTICLE_ID;
 
-import static com.weifeng.wanandroid.activity.WebViewActivity.ARTICLE_EXTRA;
 
 /**
  * @anthor weifeng
  * @time 2018/9/19 下午3:10
  */
-public class CollectArticleAdapter extends BaseRecyclerAdapter<CollectArticleAdapter.ArticleViewHolder> {
+public class CollectArticleAdapter extends BaseRecyclerAdapter<CollectArticleAdapter.ProjectViewHolder> {
 
     private List<ArticleContentItem> articleItems = new ArrayList<>();
     private Context context;
@@ -51,29 +40,29 @@ public class CollectArticleAdapter extends BaseRecyclerAdapter<CollectArticleAda
 
 
     @Override
-    public ArticleViewHolder getViewHolder(View view) {
-        return new ArticleViewHolder(view, false);
+    public ProjectViewHolder getViewHolder(View view) {
+        return new ProjectViewHolder(view, false);
     }
 
     @Override
-    public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType, boolean isItem) {
-        return new ArticleViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.ll_article_item, parent, false), true);
+    public ProjectViewHolder onCreateViewHolder(ViewGroup parent, int viewType, boolean isItem) {
+        return new ProjectViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.ll_project_item, parent, false), true);
     }
 
     @Override
-    public void onBindViewHolder(final ArticleViewHolder holder, final int position, boolean isItem) {
-        ArticleViewHolder articleHolder = holder;
-        articleHolder.authorNameTv.setText(articleItems.get(position).author);
-        articleHolder.publishTimeTv.setText(TimeUtil.getDate(articleItems.get(position).publishTime));
-        articleHolder.chapterNameTv.setText(articleItems.get(position).chapterName + "/" + articleItems.get(position).superChapterName);
-        articleHolder.articleNameTv.setText(articleItems.get(position).title);
+    public void onBindViewHolder(final ProjectViewHolder holder, final int position, boolean isItem) {
+        ProjectViewHolder articleHolder = holder;
+        articleHolder.titleTv.setText(articleItems.get(position).title);
+        articleHolder.contentTv.setText(articleItems.get(position).desc);
+        articleHolder.authorTv.setText(articleItems.get(position).author);
+        articleHolder.timeTv.setText(articleItems.get(position).niceDate);
         RequestOptions options = new RequestOptions().centerCrop().placeholder(R.drawable.ic_default_head).bitmapTransform(new CircleCrop());
-        Glide.with(context).load("").thumbnail(Glide.with(context).load((R.drawable.ic_default_head))).apply(options).into(articleHolder.authorAvatarImg);
+        Glide.with(context).load("").thumbnail(Glide.with(context).load((R.drawable.ic_default_head))).apply(options).into(articleHolder.envelopeImg);
         if (!TextUtils.isEmpty(articleItems.get(position).envelopePic)) {
-            articleHolder.envelopePicImg.setVisibility(View.VISIBLE);
-            Glide.with(context).load(articleItems.get(position).envelopePic).into(articleHolder.envelopePicImg);
+            articleHolder.envelopeImg.setVisibility(View.VISIBLE);
+            Glide.with(context).load(articleItems.get(position).envelopePic).into(articleHolder.envelopeImg);
         } else {
-            articleHolder.envelopePicImg.setVisibility(View.GONE);
+            articleHolder.envelopeImg.setVisibility(View.GONE);
         }
         articleHolder.totalContentView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,52 +70,14 @@ public class CollectArticleAdapter extends BaseRecyclerAdapter<CollectArticleAda
                 Intent intent = new Intent(context, WebViewActivity.class);
                 articleItems.get(position).collect = true;
                 intent.putExtra("url", articleItems.get(position).link);
-                intent.putExtra(ARTICLE_EXTRA, articleItems.get(position));
+                intent.putExtra(ARTICLE_ID, articleItems.get(position).id);
+                intent.putExtra(ARTICLE_COLLECT,articleItems.get(position).collect);
                 context.startActivity(intent);
             }
         });
-        articleHolder.totalContentView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("取消收藏")
-                        .setMessage("确认要取消该收藏么？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                cancelCollect(position);
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                return true;
-            }
-        });
 
     }
 
-    private void cancelCollect(final int position) {
-        RetrofitClient.getInstance().getService(APIService.class).cancelCollectStationArticle(articleItems.get(position).originId).enqueue(new ThorCallback() {
-            @Override
-            public void onSuccess(Response response) {
-                articleItems.remove(position);
-                CollectArticleAdapter.this.notifyItemRemoved(position);
-                CollectArticleAdapter.this.notifyItemRangeChanged(position, getItemCount());
-            }
-
-            @Override
-            public void onFailure(ErrorMessage errorMessage) {
-
-            }
-        });
-    }
 
 
     @Override
@@ -144,24 +95,22 @@ public class CollectArticleAdapter extends BaseRecyclerAdapter<CollectArticleAda
         notifyDataSetChanged();
     }
 
-    public static final class ArticleViewHolder extends RecyclerView.ViewHolder {
-        public ImageView authorAvatarImg;
-        public TextView authorNameTv;
-        public TextView publishTimeTv;
-        public TextView chapterNameTv;
-        public TextView articleNameTv;
-        public ImageView envelopePicImg;
+    public static final class ProjectViewHolder extends RecyclerView.ViewHolder {
+        public ImageView envelopeImg;
+        public TextView titleTv;
+        public TextView contentTv;
+        public TextView authorTv;
+        public TextView timeTv;
         public View totalContentView;
 
-        public ArticleViewHolder(View itemView, boolean isItem) {
+        public ProjectViewHolder(View itemView, boolean isItem) {
             super(itemView);
             if (isItem) {
-                authorAvatarImg = itemView.findViewById(R.id.img_author_avatar);
-                authorNameTv = itemView.findViewById(R.id.tv_author_name);
-                publishTimeTv = itemView.findViewById(R.id.tv_publish_time);
-                chapterNameTv = itemView.findViewById(R.id.tv_chapter_name);
-                articleNameTv = itemView.findViewById(R.id.tv_article_name);
-                envelopePicImg = itemView.findViewById(R.id.img_envelope_pic);
+                envelopeImg = itemView.findViewById(R.id.img_envelope_pic);
+                titleTv = itemView.findViewById(R.id.tv_title);
+                contentTv = itemView.findViewById(R.id.tv_content);
+                authorTv = itemView.findViewById(R.id.tv_author);
+                timeTv = itemView.findViewById(R.id.tv_time);
                 totalContentView = itemView;
             }
         }

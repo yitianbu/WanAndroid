@@ -21,6 +21,7 @@ public class ArticleContentItem  implements Serializable {
     public int id;
     public String link;
     public String nicedate;
+    public String niceDate;
     public String origin;
     public String projectlink;
     public long publishTime;

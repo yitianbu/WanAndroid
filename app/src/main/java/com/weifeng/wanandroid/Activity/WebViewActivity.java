@@ -6,6 +6,7 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -37,8 +38,10 @@ public class WebViewActivity extends Activity {
     private ImageView backImg;
     private ImageView collectImg;
 
-    public static final String ARTICLE_EXTRA = "article";
-    private ArticleContentItem articleContentItem;
+    public static final String ARTICLE_ID = "article_id";
+    public static final String ARTICLE_COLLECT = "article_collect";
+    private String articleId;
+    private Boolean isCollected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +59,9 @@ public class WebViewActivity extends Activity {
         collectImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(articleContentItem.collect){
+                if (isCollected) {
                     cancelCollectArticle();
-                }else {
+                } else {
                     collectArticle();
                 }
             }
@@ -91,12 +94,12 @@ public class WebViewActivity extends Activity {
     }
 
     private void collectArticle() {
-        RetrofitClient.getInstance().getService(APIService.class).collectStationArticle(articleContentItem.id).enqueue(new Callback<CollectArticlesInStationResponse>() {
+        RetrofitClient.getInstance().getService(APIService.class).collectStationArticle(Integer.valueOf(articleId)).enqueue(new Callback<CollectArticlesInStationResponse>() {
             @Override
             public void onResponse(Call<CollectArticlesInStationResponse> call, Response<CollectArticlesInStationResponse> response) {
-                if(response.code()==200) {
+                if (response.code() == 200) {
                     collectImg.setSelected(true);
-                    articleContentItem.collect = true;
+                    isCollected = true;
                 }
             }
 
@@ -108,12 +111,12 @@ public class WebViewActivity extends Activity {
     }
 
     private void cancelCollectArticle() {
-        RetrofitClient.getInstance().getService(APIService.class).cancelCollectStationArticle(articleContentItem.id).enqueue(new Callback<CollectArticlesInStationResponse>() {
+        RetrofitClient.getInstance().getService(APIService.class).cancelCollectStationArticle(Integer.valueOf(articleId)).enqueue(new Callback<CollectArticlesInStationResponse>() {
             @Override
             public void onResponse(Call<CollectArticlesInStationResponse> call, Response<CollectArticlesInStationResponse> response) {
-                if(response.code()==200) {
+                if (response.code() == 200) {
                     collectImg.setSelected(false);
-                    articleContentItem.collect = false;
+                    isCollected = false;
                 }
             }
 
@@ -126,15 +129,15 @@ public class WebViewActivity extends Activity {
 
     private void initIntent(Intent intent) {
         String url = intent.getStringExtra("url");
-        articleContentItem = (ArticleContentItem) intent.getSerializableExtra(ARTICLE_EXTRA);
-        if(articleContentItem == null){
+        articleId = intent.getStringExtra(ARTICLE_ID);
+        isCollected = intent.getBooleanExtra(ARTICLE_COLLECT, false);
+        if(TextUtils.isEmpty(articleId)){
             collectImg.setVisibility(View.GONE);
-        }else {
-            if (articleContentItem != null && articleContentItem.collect == true) {
-                collectImg.setSelected(true);
-            } else {
-                collectImg.setSelected(false);
-            }
+        }
+        if (isCollected) {
+            collectImg.setSelected(true);
+        } else {
+            collectImg.setSelected(false);
         }
         webView.loadUrl(url);
     }

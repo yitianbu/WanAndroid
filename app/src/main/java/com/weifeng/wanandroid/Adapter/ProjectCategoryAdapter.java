@@ -1,6 +1,8 @@
 package com.weifeng.wanandroid.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -14,10 +16,10 @@ import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.weifeng.wanandroid.activity.WebViewActivity;
 import com.weifeng.wanandroid.R;
+import com.weifeng.wanandroid.activity.WebViewActivity;
+import com.weifeng.wanandroid.repositiry.response.ProjectResponse;
 import com.weifeng.wanandroid.utils.TimeUtil;
-import com.weifeng.wanandroid.model.ArticleContentItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +32,12 @@ import static com.weifeng.wanandroid.activity.WebViewActivity.ARTICLE_ID;
  * @anthor weifeng
  * @time 2018/9/19 下午3:10
  */
-public class ListArticlesAdapter extends BaseRecyclerAdapter<ListArticlesAdapter.ArticleViewHolder> {
+public class ProjectCategoryAdapter extends BaseRecyclerAdapter<ProjectCategoryAdapter.ArticleViewHolder> {
 
-    private List<ArticleContentItem> articleItems = new ArrayList<>();
+    private List<ProjectResponse.ProjectBean> projectBeans = new ArrayList<>();
     private Context context;
 
-    public ListArticlesAdapter(Context context) {
+    public ProjectCategoryAdapter(Context context) {
         this.context = context;
     }
 
@@ -51,17 +53,17 @@ public class ListArticlesAdapter extends BaseRecyclerAdapter<ListArticlesAdapter
     }
 
     @Override
-    public void onBindViewHolder(ArticleViewHolder holder, final int position, boolean isItem) {
+    public void onBindViewHolder(final ArticleViewHolder holder, final int position, boolean isItem) {
         ArticleViewHolder articleHolder = holder;
-        articleHolder.authorNameTv.setText(articleItems.get(position).author);
-        articleHolder.contentTv.setText(TimeUtil.getDate(articleItems.get(position).publishTime));
-        articleHolder.chapterNameTv.setText(articleItems.get(position).chapterName + "/" + articleItems.get(position).superChapterName);
-        articleHolder.articleNameTv.setText(articleItems.get(position).title);
+        articleHolder.authorNameTv.setText(projectBeans.get(position).author);
+        articleHolder.contentTv.setText(TimeUtil.getDate(projectBeans.get(position).publishTime));
+        articleHolder.chapterNameTv.setText(projectBeans.get(position).chapterName + "/" + projectBeans.get(position).superChapterName);
+        articleHolder.articleNameTv.setText(projectBeans.get(position).title);
         RequestOptions options = new RequestOptions().centerCrop().placeholder(R.drawable.ic_default_head).bitmapTransform(new CircleCrop());
         Glide.with(context).load("").thumbnail(Glide.with(context).load((R.drawable.ic_default_head))).apply(options).into(articleHolder.authorAvatarImg);
-        if (!TextUtils.isEmpty(articleItems.get(position).envelopePic)) {
+        if (!TextUtils.isEmpty(projectBeans.get(position).envelopePic)) {
             articleHolder.envelopePicImg.setVisibility(View.VISIBLE);
-            Glide.with(context).load(articleItems.get(position).envelopePic).into(articleHolder.envelopePicImg);
+            Glide.with(context).load(projectBeans.get(position).envelopePic).into(articleHolder.envelopePicImg);
         } else {
             articleHolder.envelopePicImg.setVisibility(View.GONE);
         }
@@ -69,35 +71,29 @@ public class ListArticlesAdapter extends BaseRecyclerAdapter<ListArticlesAdapter
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, WebViewActivity.class);
-                intent.putExtra("url", articleItems.get(position).link);
-                intent.putExtra(ARTICLE_ID,articleItems.get(position).id);
-                intent.putExtra(ARTICLE_COLLECT,articleItems.get(position).collect);
+                projectBeans.get(position).collect = true;
+                intent.putExtra("url", projectBeans.get(position).link);
+                intent.putExtra(ARTICLE_ID, projectBeans.get(position).id);
+                intent.putExtra(ARTICLE_COLLECT,projectBeans.get(position).collect);
                 context.startActivity(intent);
             }
         });
-        articleHolder.totalContentView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                return false;
-            }
-        });
-
     }
+
 
 
     @Override
     public int getAdapterItemCount() {
-        return articleItems.size();
+        return projectBeans.size();
     }
 
-    public void setArticleItems(List<ArticleContentItem> articleItems) {
-        this.articleItems.addAll(articleItems);
+    public void setProjectBeans(List<ProjectResponse.ProjectBean> projectBeans) {
+        this.projectBeans.addAll(projectBeans);
         notifyDataSetChanged();
     }
 
-    public void clearArticeItems() {
-        this.articleItems.clear();
+    public void clearProjectBeans() {
+        this.projectBeans.clear();
         notifyDataSetChanged();
     }
 

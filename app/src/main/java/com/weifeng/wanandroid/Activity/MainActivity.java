@@ -11,7 +11,7 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.weifeng.wanandroid.fragment.NavigationFragment;
-import com.weifeng.wanandroid.fragment.ProjectFragment;
+import com.weifeng.wanandroid.fragment.ProjectMainFragment;
 import com.weifeng.wanandroid.fragment.FindFragment;
 import com.weifeng.wanandroid.fragment.MineFragment;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         mTabHost.addTab(mTabHost.newTabSpec(TAG_FIND).setIndicator(getTabView(TAG_FIND)),
                 FindFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec(TAG_PROJECT).setIndicator(getTabView(TAG_PROJECT)),
-                ProjectFragment.class, null);
+                ProjectMainFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec(TAG_NAVIGATION).setIndicator(getTabView(TAG_NAVIGATION)),
                 NavigationFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec(TAG_MINE).setIndicator(getTabView(TAG_MINE)),
