@@ -34,7 +34,19 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        initStatus();
 
+    }
+
+    private void initStatus() {
+        if(!TextUtils.isEmpty(Preferences.getInstance().getUserName()) && Preferences.getInstance().getCookies()!=null){
+            userNameEdit.setText(Preferences.getInstance().getUserName());
+            passwordEdit.setVisibility(View.GONE);
+            loginBtn.setText("退出登陆");
+        }else {
+            passwordEdit.setVisibility(View.VISIBLE);
+            loginBtn.setText("登陆");
+        }
     }
 
     private void initView() {

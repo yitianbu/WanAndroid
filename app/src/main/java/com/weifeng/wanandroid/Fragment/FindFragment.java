@@ -21,6 +21,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.weifeng.wanandroid.activity.LoginActivity;
+import com.weifeng.wanandroid.activity.WebViewActivity;
 import com.weifeng.wanandroid.adapter.ListArticlesAdapter;
 import com.weifeng.wanandroid.holder.LocalImageHolderView;
 import com.weifeng.wanandroid.model.ArticleHeadItem;
@@ -193,10 +194,8 @@ public class FindFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(int position) {
-//        Intent intent = new Intent(this.getActivity(), WebViewActivity.class);
-//        intent.putExtra("url",articleHeadItemList.get(position).getUrl());
-//        startActivity(intent);
-        Intent intent = new Intent(this.getActivity(),LoginActivity.class);
+        Intent intent = new Intent(this.getActivity(), WebViewActivity.class);
+        intent.putExtra("url",articleHeadItemList.get(position).getUrl());
         startActivity(intent);
     }
 }
