@@ -68,9 +68,9 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if (LOGIN_SUCCESS == response.body().errorCode) {
-                            Toast.makeText(LoginActivity.this, "success" + response.toString(), Toast.LENGTH_SHORT).show();
                             Preferences.getInstance().setUserName(userNameEdit.getText().toString());
                             Preferences.getInstance().setUserPassword(passwordEdit.getText().toString());
+                            LoginActivity.this.finish();
                         } else {
                             Toast.makeText(LoginActivity.this, response.body().errorMsg, Toast.LENGTH_LONG).show();
                         }

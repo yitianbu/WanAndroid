@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="80dp"
     android:orientation="horizontal"
     >
 
     <TextView
         android:id="@+id/tv_red_bar"
-        android:layout_width="6dp"
-        android:layout_height="80dp"
+        android:layout_width="4dp"
+        android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:background="#FE5A4C" />
 
@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         tools:text="京东超市"
-        android:textSize="18sp"
+        android:textSize="15sp"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"/>
 
 </RelativeLayout>

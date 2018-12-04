@@ -11,10 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.weifeng.wanandroid.adapter.ProjectContentAdapter;
 import com.weifeng.wanandroid.adapter.ProjectNavAdapter;
-import com.weifeng.wanandroid.model.ArticleBean;
 import com.weifeng.wanandroid.R;
 import com.weifeng.wanandroid.repositiry.APIService;
 import com.weifeng.wanandroid.repositiry.RetrofitClient;

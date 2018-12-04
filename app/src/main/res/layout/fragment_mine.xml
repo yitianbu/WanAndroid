@@ -7,7 +7,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:background="@android:color/transparent"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -33,31 +33,31 @@
 
                 <ImageView
                     android:id="@+id/img_user_head"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:layout_marginTop="60dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/default_login_head_icon" />
 
                 <TextView
                     android:id="@+id/tv_nick_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLength="24"
                     android:singleLine="true"
                     android:text="Star"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_user_sign"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLength="70"
