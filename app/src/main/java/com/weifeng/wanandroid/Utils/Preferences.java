@@ -71,4 +71,10 @@ public class Preferences {
         editor.commit();
     }
 
+    public void cleanUserInfo(){
+        setUserName("");
+        setUserPassword("");
+        setCookies(new HashSet<String>());
+    }
+
 }

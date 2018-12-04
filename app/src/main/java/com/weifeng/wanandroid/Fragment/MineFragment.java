@@ -98,7 +98,7 @@ public class MineFragment extends Fragment {
     private void initViewPager() {
         mPagerAdapter  = new MineViewPagerAdapter((this.getActivity()).getSupportFragmentManager()) ;
         mPagerAdapter.addFragment(new CollectFragment(), "收藏");
-        mPagerAdapter.addFragment(new Fragment_One(), "ToDo");
+        mPagerAdapter.addFragment(new TodoFragment(), "ToDo");
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));

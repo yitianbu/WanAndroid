@@ -39,7 +39,7 @@ public class LoginActivity extends Activity {
     }
 
     private void initStatus() {
-        if(!TextUtils.isEmpty(Preferences.getInstance().getUserName()) && Preferences.getInstance().getCookies()!=null){
+        if(!TextUtils.isEmpty(Preferences.getInstance().getUserName()) && Preferences.getInstance().getCookies()!=null && Preferences.getInstance().getCookies().size()>0){
             userNameEdit.setText(Preferences.getInstance().getUserName());
             passwordEdit.setVisibility(View.GONE);
             loginBtn.setText("退出登陆");

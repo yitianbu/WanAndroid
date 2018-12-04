@@ -5,6 +5,7 @@ import com.weifeng.wanandroid.network.SaveCookiesInterceptor;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -28,6 +29,7 @@ public class RetrofitClient {
                 .baseUrl("http://www.wanandroid.com/")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create()).build();
+
     }
 
     public static RetrofitClient getInstance() {
@@ -41,7 +43,7 @@ public class RetrofitClient {
         return instance;
     }
 
-    public final<T> T getService(final Class<T> clazz){
+    public final <T> T getService(final Class<T> clazz) {
         return mRetrofit.create(clazz);
     }
 }

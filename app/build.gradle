@@ -40,5 +40,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     //轮播图
     implementation 'com.bigkoo:ConvenientBanner:2.1.4'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
 }

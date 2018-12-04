@@ -11,7 +11,7 @@ import retrofit2.Response;
 public abstract class ThorCallback<T> implements Callback<T> {
     @Override
     public void onResponse(Call call, Response response) {
-        if(response.code() == 200){
+        if(response.code() == 200 ){
             onSuccess(response);
         }else {
             ErrorMessage errorMessage = new ErrorMessage();

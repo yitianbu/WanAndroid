@@ -1,4 +1,5 @@
 package com.weifeng.wanandroid.repositiry;
+import com.weifeng.wanandroid.repositiry.response.AddToDoResponse;
 import com.weifeng.wanandroid.repositiry.response.ArticlesHeadResponse;
 import com.weifeng.wanandroid.repositiry.response.CollectArticlesInStationResponse;
 import com.weifeng.wanandroid.repositiry.response.CollectArticlesResponse;
@@ -9,6 +10,7 @@ import com.weifeng.wanandroid.repositiry.response.ProjectCategoryItemResponse;
 import com.weifeng.wanandroid.repositiry.response.ProjectCategoryResponse;
 import com.weifeng.wanandroid.repositiry.response.ProjectResponse;
 import com.weifeng.wanandroid.repositiry.response.RegisterResponse;
+import com.weifeng.wanandroid.repositiry.response.ToDoListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -95,5 +97,40 @@ public interface APIService {
      */
     @GET("/project/list/{id}/json")
     Call<ProjectResponse> getProjectCategoryList(@Path("id") int id, @Query("cid") String cid);
+
+    /**
+     * 新增一个TODO
+     */
+    @POST("/lg/todo/add/json")
+    @FormUrlEncoded
+    Call<AddToDoResponse> addToDo(@Field("title") String title,@Field("content") String content,@Field("date") String date,@Field("type") Integer type,@Field("priority") Integer priority);
+
+    /**
+     * 更新一个TODO
+     */
+    @POST("/lg/todo/update/{id}/json")
+    @FormUrlEncoded
+    Call<AddToDoResponse> updateToDo(@Field("id") Integer id,@Field("title") String title,@Field("content") String content,@Field("date") String date,@Field("status") int status,@Field("type") Integer type,@Field("priority") Integer priority);
+
+    /**
+     * 删除一个Todo
+     */
+    @POST("/lg/todo/delete/{id}/json")
+    @FormUrlEncoded
+    Call<AddToDoResponse> deleteToDo(@Field("id") Integer id);
+
+    /**
+     * 仅更新完成状态Todo
+     */
+    @POST("/lg/todo/done/{id}/json")
+    @FormUrlEncoded
+    Call<AddToDoResponse> updateToDoStatus(@Field("id") Integer id,@Field("status") Integer status);
+
+    /**
+     * Todo列表,页码从1开始
+     */
+    @POST("/lg/todo/v2/list/{page}/json")
+    Call<ToDoListResponse> getToDoList(@Path("page") Integer page);
+
 
 }
