@@ -23,6 +23,7 @@ import com.weifeng.wanandroid.repositiry.response.AddToDoResponse;
 import com.weifeng.wanandroid.repositiry.response.CollectArticlesResponse;
 import com.weifeng.wanandroid.repositiry.response.ToDoListResponse;
 import com.weifeng.wanandroid.utils.Preferences;
+import com.weifeng.wanandroid.widget.loading.AutoLoadingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ import static com.weifeng.wanandroid.model.TodoBean.TODOTOP;
 public class TodoFragment extends Fragment {
     private XRefreshView xRefreshView;
     private RecyclerView recyclerView;
+    private AutoLoadingView loadingView;
     private TodoAdapter adapter;
     private View rootView;
 
@@ -62,6 +64,7 @@ public class TodoFragment extends Fragment {
     private void initView(View view) {
         xRefreshView = view.findViewById(R.id.content_xRefreshView);
         recyclerView = view.findViewById(R.id.rv_content);
+        loadingView = view.findViewById(R.id.loading_view);
         adapter = new TodoAdapter(view.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -100,10 +103,12 @@ public class TodoFragment extends Fragment {
     }
 
     private void loadContentData(final int currentPage) {
+        loadingView.showLoading();
         RetrofitClient.getInstance().getService(APIService.class).getToDoList(currentPage).enqueue(new ThorCallback<ToDoListResponse>() {
 
             @Override
             public void onSuccess(Response<ToDoListResponse> response) {
+                loadingView.dismissLoading();
                 if(response.body() == null ||  response.body().getData()==null ||response.body().getData().datas == null || response.body().getData().datas.size() ==0) {
                     xRefreshView.stopLoadMore();
                     xRefreshView.stopRefresh();
@@ -130,6 +135,7 @@ public class TodoFragment extends Fragment {
 
             @Override
             public void onFailure(ErrorMessage errorMessage) {
+                loadingView.dismissLoading();
                 xRefreshView.stopLoadMore();
                 xRefreshView.stopRefresh();
             }

@@ -25,6 +25,7 @@ import com.weifeng.wanandroid.adapter.MineViewPagerAdapter;
 import com.weifeng.wanandroid.R;
 import com.weifeng.wanandroid.utils.DensityUtil;
 import com.weifeng.wanandroid.utils.Preferences;
+import com.weifeng.wanandroid.widget.loading.AutoLoadingView;
 
 
 public class MineFragment extends Fragment {
@@ -43,6 +44,7 @@ public class MineFragment extends Fragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private MineViewPagerAdapter mPagerAdapter;
+    private AutoLoadingView autoLoadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,6 +108,8 @@ public class MineFragment extends Fragment {
     }
 
     private void initView(View view) {
+        autoLoadingView = view.findViewById(R.id.loading_view);
+        autoLoadingView.dismissLoading();
         mAppBarLayout = view.findViewById(R.id.app_bar);
         mCollaspsingToolBarLayout = view.findViewById(R.id.collapsing_toolbar_layout);
         mLoginContentLl = view.findViewById(R.id.ll_login_content);

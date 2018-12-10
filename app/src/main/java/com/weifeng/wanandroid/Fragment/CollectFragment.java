@@ -20,6 +20,7 @@ import com.weifeng.wanandroid.repositiry.RetrofitClient;
 import com.weifeng.wanandroid.repositiry.callback.ThorCallback;
 import com.weifeng.wanandroid.repositiry.response.CollectArticlesInStationResponse;
 import com.weifeng.wanandroid.repositiry.response.CollectArticlesResponse;
+import com.weifeng.wanandroid.widget.loading.AutoLoadingView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +29,7 @@ import retrofit2.Response;
 public class CollectFragment extends Fragment {
     private XRefreshView xRefreshView;
     private RecyclerView recyclerView;
+    private AutoLoadingView loadingView;
     private CollectArticleAdapter adapter;
     private View rootView;
 
@@ -58,6 +60,7 @@ public class CollectFragment extends Fragment {
     private void initView(View view) {
         xRefreshView = view.findViewById(R.id.content_xRefreshView);
         recyclerView = view.findViewById(R.id.rv_content);
+        loadingView = view.findViewById(R.id.loading_view);
         adapter = new CollectArticleAdapter(view.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -96,10 +99,16 @@ public class CollectFragment extends Fragment {
     }
 
     public void loadContentData(final int page) {
+        if(loadingView!=null) {
+            loadingView.showLoading();
+        }
         RetrofitClient.getInstance().getService(APIService.class).getCollectArticleList(page).enqueue(new ThorCallback<CollectArticlesResponse>() {
 
             @Override
             public void onSuccess(Response<CollectArticlesResponse> response) {
+                if(loadingView!=null) {
+                    loadingView.dismissLoading();
+                }
                 if(response.body() ==null ||  response.body().getData() == null){
                     return;
                 }
@@ -115,6 +124,9 @@ public class CollectFragment extends Fragment {
 
             @Override
             public void onFailure(ErrorMessage errorMessage) {
+                if(loadingView!=null) {
+                    loadingView.dismissLoading();
+                }
                 xRefreshView.stopLoadMore();
                 xRefreshView.stopRefresh();
             }

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.andview.refreshview.XRefreshView;
 import com.andview.refreshview.XRefreshViewFooter;
@@ -35,6 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.weifeng.wanandroid.R;
+import com.weifeng.wanandroid.widget.loading.AutoLoadingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ import java.util.List;
 public class FindFragment extends Fragment implements OnItemClickListener {
     private View rootView;
     private XRefreshView xRefreshView;
+    private AutoLoadingView loadingView;
     private RecyclerView contentRV;
     private ListArticlesAdapter listArticlesAdapter;
     ConvenientBanner convenientBanner;
@@ -92,6 +95,7 @@ public class FindFragment extends Fragment implements OnItemClickListener {
 
 
     private void loadContentData() {
+        loadingView.showLoading();
         RetrofitClient.getInstance().getService(APIService.class).getListArticles(page).enqueue(new Callback<ListArticlesResponse>() {
             @Override
             public void onResponse(Call<ListArticlesResponse> call, Response<ListArticlesResponse> response) {
@@ -105,6 +109,7 @@ public class FindFragment extends Fragment implements OnItemClickListener {
                 }
                 xRefreshView.stopLoadMore();
                 xRefreshView.stopRefresh();
+                loadingView.dismissLoading();
             }
 
             @Override
@@ -112,12 +117,14 @@ public class FindFragment extends Fragment implements OnItemClickListener {
                 Log.e("", "");
                 xRefreshView.stopLoadMore();
                 xRefreshView.stopRefresh();
+                loadingView.dismissLoading();
             }
         });
     }
 
     private void initView(View view) {
         this.rootView = view;
+        loadingView = view.findViewById(R.id.loading_view);
         xRefreshView = view.findViewById(R.id.content_xRefreshView);
         xRefreshView.setPullRefreshEnable(true);    //禁止下拉刷新
         xRefreshView.setPullLoadEnable(true);

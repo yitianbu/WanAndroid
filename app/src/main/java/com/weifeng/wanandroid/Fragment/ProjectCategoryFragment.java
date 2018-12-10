@@ -20,6 +20,7 @@ import com.weifeng.wanandroid.repositiry.callback.ThorCallback;
 import com.weifeng.wanandroid.repositiry.response.CollectArticlesResponse;
 import com.weifeng.wanandroid.repositiry.response.ProjectCategoryResponse;
 import com.weifeng.wanandroid.repositiry.response.ProjectResponse;
+import com.weifeng.wanandroid.widget.loading.AutoLoadingView;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ import retrofit2.Response;
 
 public class ProjectCategoryFragment extends Fragment {
     private XRefreshView xRefreshView;
+    private AutoLoadingView autoLoadingView;
     private RecyclerView recyclerView;
     private ProjectCategoryAdapter adapter;
     private View rootView;
@@ -59,6 +61,7 @@ public class ProjectCategoryFragment extends Fragment {
 
     private void initView(View view) {
         xRefreshView = view.findViewById(R.id.content_xRefreshView);
+        autoLoadingView = view.findViewById(R.id.loading_view);
         recyclerView = view.findViewById(R.id.rv_content);
         adapter = new ProjectCategoryAdapter(view.getContext());
         adapter.setCustomLoadMoreView(new XRefreshViewFooter(view.getContext()));
@@ -98,10 +101,16 @@ public class ProjectCategoryFragment extends Fragment {
     }
 
     public void loadContentData(final int page) {
+        if(autoLoadingView!=null) {
+            autoLoadingView.showLoading();
+        }
         RetrofitClient.getInstance().getService(APIService.class).getProjectCategoryList(page,String.valueOf(categoryData.getId())).enqueue(new ThorCallback<ProjectResponse>() {
 
             @Override
             public void onSuccess(Response<ProjectResponse> response) {
+                if(autoLoadingView!=null) {
+                    autoLoadingView.dismissLoading();
+                }
                 if(response.body() ==null ||  response.body().data == null || response.body().data.datas == null || response.body().data.datas.size() == 0){
                     xRefreshView.stopLoadMore();
                     xRefreshView.setPullLoadEnable(false);
@@ -119,6 +128,9 @@ public class ProjectCategoryFragment extends Fragment {
 
             @Override
             public void onFailure(ErrorMessage errorMessage) {
+                if(autoLoadingView!=null) {
+                    autoLoadingView.dismissLoading();
+                }
                 xRefreshView.stopLoadMore();
                 xRefreshView.stopRefresh();
             }

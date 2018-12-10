@@ -1,154 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@android:color/transparent"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_layout"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="220dp"
+            android:background="@android:color/transparent"
             android:fitsSystemWindows="true"
-            app:contentScrim="#46a8ba"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <LinearLayout
-                android:id="@+id/ll_login_content"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@color/colorPrimary"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:visibility="visible"
-                app:layout_collapseMode="pin">
+                android:fitsSystemWindows="true"
+                app:contentScrim="#46a8ba"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <ImageView
-                    android:id="@+id/img_user_head"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="60dp"
-                    android:src="@drawable/default_login_head_icon" />
-
-                <TextView
-                    android:id="@+id/tv_nick_name"
+                <LinearLayout
+                    android:id="@+id/ll_login_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLength="24"
-                    android:singleLine="true"
-                    android:text="Star"
-                    android:textColor="#ffffff"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tv_user_sign"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLength="70"
-                    android:maxLines="2"
-                    android:text="吹牛逼的都是年轻人"
-                    android:textColor="#ffffff"
-                    android:textSize="14sp"
-                    android:visibility="visible" />
-            </LinearLayout>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/AppTheme.Toolbar"
-                android:background="@android:color/transparent"
-                app:layout_collapseMode="pin"
-                app:navigationIcon="@null">
-
-                <ImageView
-                    android:id="@+id/iv_back"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="left"
-                    android:textSize="16sp" />
-
-                <android.support.v7.widget.ButtonBarLayout
-                    android:id="@+id/buttonBarLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:visibility="invisible">
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:visibility="visible"
+                    app:layout_collapseMode="pin">
 
                     <ImageView
-                        android:id="@+id/iv_toolbar_avatar"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginRight="5dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:id="@+id/img_user_head"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="60dp"
+                        android:src="@drawable/default_login_head_icon" />
 
                     <TextView
-                        android:id="@+id/tv_toolbar_name"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_nick_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLength="24"
+                        android:singleLine="true"
+                        android:text="Star"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_user_sign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLength="70"
+                        android:maxLines="2"
+                        android:text="吹牛逼的都是年轻人"
+                        android:textColor="#ffffff"
+                        android:textSize="14sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    style="@style/AppTheme.Toolbar"
+                    android:background="@android:color/transparent"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@null">
+
+                    <ImageView
+                        android:id="@+id/iv_back"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="left"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.ButtonBarLayout
+                        android:id="@+id/buttonBarLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:text="Star"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-                </android.support.v7.widget.ButtonBarLayout>
+                        android:gravity="center"
+                        android:visibility="invisible">
 
-            </android.support.v7.widget.Toolbar>
+                        <ImageView
+                            android:id="@+id/iv_toolbar_avatar"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@mipmap/ic_launcher" />
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+                        <TextView
+                            android:id="@+id/tv_toolbar_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:text="Star"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </android.support.v7.widget.ButtonBarLayout>
 
-    </android.support.design.widget.AppBarLayout>
+                </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </android.support.design.widget.CollapsingToolbarLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray" />
+        </android.support.design.widget.AppBarLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="#F8F9F9"
-            android:fillViewport="false"
-            app:layout_scrollFlags="scroll"
-            app:tabIndicatorColor="#0835f8"
-            app:tabIndicatorHeight="2.0dp"
-            app:tabSelectedTextColor="#0835f8"
-            app:tabTextColor="#ced0d3" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffffff" />
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray" />
 
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="#F8F9F9"
+                android:fillViewport="false"
+                app:layout_scrollFlags="scroll"
+                app:tabIndicatorColor="#0835f8"
+                app:tabIndicatorHeight="2.0dp"
+                app:tabSelectedTextColor="#0835f8"
+                app:tabTextColor="#ced0d3" />
 
-</android.support.design.widget.CoordinatorLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff" />
+
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <com.weifeng.wanandroid.widget.loading.AutoLoadingView
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>

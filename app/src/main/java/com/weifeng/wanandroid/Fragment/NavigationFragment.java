@@ -17,6 +17,7 @@ import com.weifeng.wanandroid.R;
 import com.weifeng.wanandroid.repositiry.APIService;
 import com.weifeng.wanandroid.repositiry.RetrofitClient;
 import com.weifeng.wanandroid.repositiry.response.NaviResponse;
+import com.weifeng.wanandroid.widget.loading.AutoLoadingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ import retrofit2.Response;
 public class NavigationFragment extends Fragment implements ProjectNavAdapter.OnItemClickListener{
     private View rootView;
     private RecyclerView navRv,contentRv;
+    private AutoLoadingView autoLoadingView;
     private ProjectContentAdapter contentAdapter;
     private ProjectNavAdapter navAdapter;
     private List<NaviResponse.Articles> mData;
@@ -49,6 +51,7 @@ public class NavigationFragment extends Fragment implements ProjectNavAdapter.On
     }
 
     private void loadData() {
+        autoLoadingView.showLoading();
         RetrofitClient.getInstance().getService(APIService.class).getNavis().enqueue(new Callback<NaviResponse>() {
             @Override
             public void onResponse(Call<NaviResponse> call, Response<NaviResponse> response) {
@@ -56,11 +59,13 @@ public class NavigationFragment extends Fragment implements ProjectNavAdapter.On
                 navAdapter.setNavListData(getNavTitles(mData));
                 navAdapter.setOnItemClickListener(NavigationFragment.this);
                 contentAdapter.setContentListData(mData.get(0).articles);
+                autoLoadingView.dismissLoading();
             }
 
             @Override
             public void onFailure(Call<NaviResponse> call, Throwable t) {
                 Log.e("wf", t.getMessage());
+                autoLoadingView.dismissLoading();
             }
         });
     }
@@ -80,6 +85,7 @@ public class NavigationFragment extends Fragment implements ProjectNavAdapter.On
 
     private void initView(View view) {
         this.rootView = view;
+        autoLoadingView = view.findViewById(R.id.loading_view);
         navRv = view.findViewById(R.id.rv_nav);
         contentRv = view.findViewById(R.id.rv_content);
         navAdapter = new ProjectNavAdapter(this.getActivity(),navRv);
