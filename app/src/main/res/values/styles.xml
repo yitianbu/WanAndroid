@@ -25,6 +25,25 @@
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
+    <style name="edit_to_do_item_input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="tv_to_do_item_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <declare-styleable name="WfImageView">
         <attr name="default_holder" format="reference" />
         <attr name="error_holder" format="reference" />

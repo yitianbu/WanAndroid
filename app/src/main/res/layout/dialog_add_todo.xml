@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="500dp"
+    android:layout_height="700dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="添加代办清单"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:text="标题"
+            style="@style/tv_to_do_item_title" />
+
+        <EditText
+            android:id="@+id/edit_title"
+            tools:text ="学习"
+            style="@style/edit_to_do_item_input" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:text="详情"
+            style="@style/tv_to_do_item_title" />
+
+        <EditText
+            android:id="@+id/edit_content"
+            tools:text ="非必填"
+            style="@style/edit_to_do_item_input" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:text="时间"
+            style="@style/tv_to_do_item_title" />
+
+        <EditText
+            android:id="@+id/edit_time"
+            tools:text ="2018-12-05"
+            android:editable="false"
+            style="@style/edit_to_do_item_input" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="60dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:background="@color/gray"
+            android:text="取消"
+            android:textColor="#0000ff"
+            />
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginLeft="40dp"
+            android:background="#0000ff"
+            android:text="保存"
+            android:textColor="#ffffff"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

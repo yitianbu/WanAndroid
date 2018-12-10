@@ -1,8 +1,7 @@
 package com.weifeng.wanandroid.adapter;
 
-
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,28 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.request.RequestOptions;
 import com.weifeng.wanandroid.R;
-import com.weifeng.wanandroid.activity.WebViewActivity;
-import com.weifeng.wanandroid.model.ArticleContentItem;
+import com.weifeng.wanandroid.dialog.AddToDoDialog;
 import com.weifeng.wanandroid.model.TodoBean;
+import com.weifeng.wanandroid.repositiry.APIService;
+import com.weifeng.wanandroid.repositiry.RetrofitClient;
+import com.weifeng.wanandroid.repositiry.response.AddToDoResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.weifeng.wanandroid.activity.WebViewActivity.ARTICLE_COLLECT;
-import static com.weifeng.wanandroid.activity.WebViewActivity.ARTICLE_ID;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.weifeng.wanandroid.model.TodoBean.DONEITEM;
 import static com.weifeng.wanandroid.model.TodoBean.DONETOP;
 import static com.weifeng.wanandroid.model.TodoBean.TODOITEM;
 import static com.weifeng.wanandroid.model.TodoBean.TODOTOP;
-
 
 /**
  * @anthor weifeng
@@ -41,7 +39,7 @@ import static com.weifeng.wanandroid.model.TodoBean.TODOTOP;
 public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static List<TodoBean> todoItems = new ArrayList<>();
-    private Context context;
+    private static Context context;
 
     public TodoAdapter(Context context) {
         this.context = context;
@@ -96,7 +94,6 @@ public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //    public int getAdapterItemCount() {
 //        return todoItems.size();
 //    }
-
 
 
     @Override
@@ -158,7 +155,7 @@ public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return todoItems.size();
     }
 
-    public static final class TodoTopViewHolder extends RecyclerView.ViewHolder {
+    public final class TodoTopViewHolder extends RecyclerView.ViewHolder {
         public View totalContentView;
         public TextView topTitleTv;
         public ImageView addImg;
@@ -180,13 +177,30 @@ public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             addImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    AddToDoDialog addToDoDialog = new AddToDoDialog();
+                    addToDoDialog.setOnDataAddSuccessListener(new AddToDoDialog.OnDataAddSuccessListener() {
+                        @Override
+                        public void onDataAddSuccess(TodoBean todoBean) {
+                            if (todoItems.get(0).viewType != TODOTOP) {
+                                TodoBean todoBean1 = new TodoBean();
+                                todoBean1.viewType = TODOTOP;
+                                todoItems.add(0, todoBean1);
+                                todoBean.viewType = TODOITEM;
+                                todoItems.add(1, todoBean);
+                            } else {
+                                todoBean.viewType = TODOITEM;
+                                todoItems.add(findLastTodoDataPos() + 1, todoBean);
+                            }
+                            notifyDataSetChanged();
+                        }
+                    });
+                    addToDoDialog.show(((Activity) context).getFragmentManager(), "AddToDODialog");
                 }
             });
         }
     }
 
-    public static final class TodoItemViewHolder extends RecyclerView.ViewHolder {
+    public final class TodoItemViewHolder extends RecyclerView.ViewHolder {
         public TextView todoTimeTv;
         public TextView todoTitleTv;
         public TextView todoContentTv;
@@ -205,31 +219,61 @@ public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         }
 
-        public void bindData(TodoBean todoBean, int position) {
-            if (position != 0) {
-                if (TextUtils.isEmpty(todoItems.get(position - 1).dateStr) || (!todoItems.get(position - 1).dateStr.equals(todoBean.dateStr))) {
-                    todoTimeTv.setVisibility(View.VISIBLE);
-                    todoTimeTv.setText(todoBean.dateStr);
-                }
-                todoTitleTv.setText(todoBean.title);
-                todoContentTv.setText(todoBean.content);
-                deleteIconImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-                doneIconImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
+        public void bindData(TodoBean todoBean, final int position) {
+//            if (position != 0) {
+            if (TextUtils.isEmpty(todoItems.get(position - 1).dateStr) || (!todoItems.get(position - 1).dateStr.equals(todoBean.dateStr))) {
+                todoTimeTv.setVisibility(View.VISIBLE);
+                todoTimeTv.setText(todoBean.dateStr);
             }
+            todoTitleTv.setText(todoBean.title);
+            todoContentTv.setText(todoBean.content);
+            deleteIconImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteData(position);
+                }
+            });
+            doneIconImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doneData(position);
+                }
+            });
+//            }
+        }
+
+        private void doneData(final int position) {
+            RetrofitClient.getInstance().getService(APIService.class).updateToDoStatus(todoItems.get(position).id, 1).enqueue(new Callback<AddToDoResponse>() {
+                @Override
+                public void onResponse(Call<AddToDoResponse> call, Response<AddToDoResponse> response) {
+                    if (hasDoneItemInData()) {
+                        todoItems.get(position).viewType = DONEITEM;
+                        todoItems.add(todoItems.get(position));
+                    } else {
+                        TodoBean todoBean = new TodoBean();
+                        todoBean.viewType = DONETOP;
+                        todoItems.add(todoBean);
+                        todoItems.get(position).viewType = DONEITEM;
+                        todoItems.add(todoItems.get(position));
+                    }
+                    todoItems.remove(position);
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "更新完成", Toast.LENGTH_SHORT).show();
+                }
+
+                private boolean hasDoneItemInData() {
+                    return todoItems.get(todoItems.size() - 1).viewType == DONEITEM;
+                }
+
+                @Override
+                public void onFailure(Call<AddToDoResponse> call, Throwable t) {
+                    Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
-    public static final class DoneTopViewHolder extends RecyclerView.ViewHolder {
+    public final class DoneTopViewHolder extends RecyclerView.ViewHolder {
         public View totalContentView;
         public TextView topTitleTv;
         public ImageView addImg;
@@ -252,7 +296,7 @@ public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
-    public static final class DoneItemViewHolder extends RecyclerView.ViewHolder {
+    public final class DoneItemViewHolder extends RecyclerView.ViewHolder {
         public TextView todoTimeTv;
         public TextView todoTitleTv;
         public TextView todoContentTv;
@@ -273,7 +317,7 @@ public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         }
 
-        public void bindData(TodoBean todoBean, int position) {
+        public void bindData(TodoBean todoBean, final int position) {
             doneDataTv.setVisibility(View.VISIBLE);
             doneDataTv.setText("完成:" + todoBean.completeDateStr);
             if (TextUtils.isEmpty(todoItems.get(position - 1).dateStr) || (!todoItems.get(position - 1).dateStr.equals(todoBean.dateStr))) {
@@ -285,15 +329,70 @@ public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             deleteIconImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    deleteData(position);
                 }
             });
             redoIconImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    reDoData(position);
                 }
             });
         }
+
+        private void reDoData(final int position) {
+            RetrofitClient.getInstance().getService(APIService.class).updateToDoStatus(todoItems.get(position).id, 0).enqueue(new Callback<AddToDoResponse>() {
+                @Override
+                public void onResponse(Call<AddToDoResponse> call, Response<AddToDoResponse> response) {
+                    int lastTodoPos = findLastTodoDataPos();
+                    todoItems.get(position).viewType = TODOITEM;
+                    todoItems.add(lastTodoPos + 1, todoItems.get(position));
+                    todoItems.remove(position + 1);
+                    if (todoItems.get(todoItems.size() - 1).viewType == DONETOP) {
+                        todoItems.remove(todoItems.get(todoItems.size() - 1));
+                    }
+                    TodoAdapter.this.notifyDataSetChanged();
+                    Toast.makeText(context, "更新完成", Toast.LENGTH_SHORT).show();
+                }
+
+                private boolean isTodoBeanInData() {
+                    if (todoItems.size() > 2 && todoItems.get(1).viewType == TODOITEM) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<AddToDoResponse> call, Throwable t) {
+                    Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private int findLastTodoDataPos() {
+        for (int i = 0; i < todoItems.size(); i++) {
+            if (todoItems.get(i).viewType == TODOITEM && todoItems.get(i + 1).viewType != TODOITEM) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private void deleteData(final int position) {
+        RetrofitClient.getInstance().getService(APIService.class).deleteToDo(todoItems.get(position).id).enqueue(new Callback<AddToDoResponse>() {
+            @Override
+            public void onResponse(Call<AddToDoResponse> call, Response<AddToDoResponse> response) {
+                todoItems.remove(position);
+                TodoAdapter.this.notifyDataSetChanged();
+                Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<AddToDoResponse> call, Throwable t) {
+                Toast.makeText(context, "删除失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

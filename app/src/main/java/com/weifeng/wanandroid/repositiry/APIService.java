@@ -116,15 +116,14 @@ public interface APIService {
      * 删除一个Todo
      */
     @POST("/lg/todo/delete/{id}/json")
-    @FormUrlEncoded
-    Call<AddToDoResponse> deleteToDo(@Field("id") Integer id);
+    Call<AddToDoResponse> deleteToDo(@Path("id") Integer id);
 
     /**
      * 仅更新完成状态Todo
      */
     @POST("/lg/todo/done/{id}/json")
     @FormUrlEncoded
-    Call<AddToDoResponse> updateToDoStatus(@Field("id") Integer id,@Field("status") Integer status);
+    Call<AddToDoResponse> updateToDoStatus(@Path("id") Integer id,@Field("status") Integer status);
 
     /**
      * Todo列表,页码从1开始

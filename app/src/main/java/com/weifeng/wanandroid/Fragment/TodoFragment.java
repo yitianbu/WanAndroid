@@ -104,7 +104,10 @@ public class TodoFragment extends Fragment {
 
             @Override
             public void onSuccess(Response<ToDoListResponse> response) {
-                if(response.body() == null) {
+                if(response.body() == null ||  response.body().getData()==null ||response.body().getData().datas == null || response.body().getData().datas.size() ==0) {
+                    xRefreshView.stopLoadMore();
+                    xRefreshView.stopRefresh();
+                    xRefreshView.enableRecyclerViewPullUp(false);
                     return;
                 }
                 if(response.body().getErrorCode() == -1001){
@@ -135,16 +138,35 @@ public class TodoFragment extends Fragment {
 
     private List<TodoBean> convertData(List<TodoBean> data) {
         List<TodoBean> result = new ArrayList<>();
+        List<TodoBean> todoBeanList = new ArrayList<>();
+        List<TodoBean> doneBeanList = new ArrayList<>();
+        for (int i = 0; i <data.size() ; i++) {
+            if(data.get(i).status == 0){
+                todoBeanList.add(data.get(i));
+            }else {
+                doneBeanList.add(data.get(i));
+            }
+        }
+        data.clear();
+        data.addAll(todoBeanList);
+        data.addAll(doneBeanList);
         for (int i = 0; i < data.size(); i++) {
             TodoBean currentData = data.get(i);
             if (i == 0) {
                 TodoBean todoBean = new TodoBean();
-                if (currentData.status == 0) {
-                    todoBean.viewType = TODOTOP;
-                }else {
-                    todoBean.viewType = DONETOP;
+                todoBean.viewType = TODOTOP;
+                result.add(0,todoBean);
+                if (currentData.status == 1) {
+                    TodoBean todoBean1 = new TodoBean();
+                    todoBean1.viewType = DONETOP;
+                    result.add(todoBean1);
                 }
-                result.add(todoBean);
+                if(currentData.status==0){
+                    currentData.viewType = TODOITEM;
+                }else {
+                    currentData.viewType = DONEITEM;
+                }
+                result.add(currentData);
             } else {
                 if(currentData.status!=data.get(i-1).status){
                     TodoBean todoBean = new TodoBean();
