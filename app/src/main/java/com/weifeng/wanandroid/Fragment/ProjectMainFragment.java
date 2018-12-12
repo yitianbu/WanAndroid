@@ -1,6 +1,8 @@
 package com.weifeng.wanandroid.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -20,6 +22,9 @@ import com.weifeng.wanandroid.repositiry.RetrofitClient;
 import com.weifeng.wanandroid.repositiry.callback.ThorCallback;
 import com.weifeng.wanandroid.repositiry.response.ProjectCategoryResponse;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import retrofit2.Response;
@@ -80,7 +85,7 @@ public class ProjectMainFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tabLayout);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         viewPager = view.findViewById(R.id.view_pager);
-        viewPagerAdapter = new ProjectViewPagerAdapter(this.getActivity().getSupportFragmentManager());
+        viewPagerAdapter = new ProjectViewPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -97,6 +102,31 @@ public class ProjectMainFragment extends Fragment {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                int selectedTabPos = tabLayout.getSelectedTabPosition();
+                if(tabLayout.getTabAt(selectedTabPos)!=null) {
+                    try {
+                        TabLayout.Tab tab = tabLayout.getTabAt(selectedTabPos);
+                        Class<?>  tabClass =  TabLayout.Tab.class;
+                        Field field = tabClass.getDeclaredField("mView");
+                        field.setAccessible(true);
+                        View view = (View)field.get(tab);
+                        tabLayout.smoothScrollTo(view.getLeft(),0);
+                    } catch (NoSuchFieldException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }

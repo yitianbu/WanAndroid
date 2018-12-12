@@ -44,7 +44,6 @@ public class MineFragment extends Fragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private MineViewPagerAdapter mPagerAdapter;
-    private AutoLoadingView autoLoadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,7 +97,7 @@ public class MineFragment extends Fragment {
     }
 
     private void initViewPager() {
-        mPagerAdapter  = new MineViewPagerAdapter((this.getActivity()).getSupportFragmentManager()) ;
+        mPagerAdapter  = new MineViewPagerAdapter(getChildFragmentManager());
         mPagerAdapter.addFragment(new CollectFragment(), "收藏");
         mPagerAdapter.addFragment(new TodoFragment(), "ToDo");
         mViewPager.setAdapter(mPagerAdapter);
@@ -108,8 +107,6 @@ public class MineFragment extends Fragment {
     }
 
     private void initView(View view) {
-        autoLoadingView = view.findViewById(R.id.loading_view);
-        autoLoadingView.dismissLoading();
         mAppBarLayout = view.findViewById(R.id.app_bar);
         mCollaspsingToolBarLayout = view.findViewById(R.id.collapsing_toolbar_layout);
         mLoginContentLl = view.findViewById(R.id.ll_login_content);

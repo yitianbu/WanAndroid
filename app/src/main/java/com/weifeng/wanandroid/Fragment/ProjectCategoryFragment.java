@@ -8,21 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.andview.refreshview.XRefreshView;
 import com.andview.refreshview.XRefreshViewFooter;
 import com.weifeng.wanandroid.R;
-import com.weifeng.wanandroid.adapter.CollectArticleAdapter;
 import com.weifeng.wanandroid.adapter.ProjectCategoryAdapter;
 import com.weifeng.wanandroid.repositiry.APIService;
 import com.weifeng.wanandroid.repositiry.RetrofitClient;
 import com.weifeng.wanandroid.repositiry.callback.ThorCallback;
-import com.weifeng.wanandroid.repositiry.response.CollectArticlesResponse;
 import com.weifeng.wanandroid.repositiry.response.ProjectCategoryResponse;
 import com.weifeng.wanandroid.repositiry.response.ProjectResponse;
 import com.weifeng.wanandroid.widget.loading.AutoLoadingView;
 
-import java.util.List;
 
 import retrofit2.Response;
 
