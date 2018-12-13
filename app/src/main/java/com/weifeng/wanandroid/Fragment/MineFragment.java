@@ -35,7 +35,6 @@ public class MineFragment extends Fragment {
     private LinearLayout mLoginContentLl;
     private ImageView mUserHeadImg;
     private TextView mNickNameTv;
-    private TextView mUserSignTv;
     private Toolbar mToolbar;
     private ImageView mBackIv;
     private ButtonBarLayout buttonBarLayout;
@@ -97,7 +96,7 @@ public class MineFragment extends Fragment {
     }
 
     private void initViewPager() {
-        mPagerAdapter  = new MineViewPagerAdapter(getChildFragmentManager());
+        mPagerAdapter  = new MineViewPagerAdapter(getFragmentManager());
         mPagerAdapter.addFragment(new CollectFragment(), "收藏");
         mPagerAdapter.addFragment(new TodoFragment(), "ToDo");
         mViewPager.setAdapter(mPagerAdapter);
@@ -112,7 +111,6 @@ public class MineFragment extends Fragment {
         mLoginContentLl = view.findViewById(R.id.ll_login_content);
         mUserHeadImg = view.findViewById(R.id.img_user_head);
         mNickNameTv = view.findViewById(R.id.tv_nick_name);
-        mUserSignTv = view.findViewById(R.id.tv_user_sign);
         mToolbar = view.findViewById(R.id.toolbar);
         mBackIv = view.findViewById(R.id.iv_back);
         buttonBarLayout = view.findViewById(R.id.buttonBarLayout);

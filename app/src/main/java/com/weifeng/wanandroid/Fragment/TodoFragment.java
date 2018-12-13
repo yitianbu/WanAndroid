@@ -64,7 +64,7 @@ public class TodoFragment extends Fragment {
     private void initView(View view) {
         xRefreshView = view.findViewById(R.id.content_xRefreshView);
         recyclerView = view.findViewById(R.id.rv_content);
-//        loadingView = view.findViewById(R.id.loading_view);
+        loadingView = view.findViewById(R.id.loading_view);
         adapter = new TodoAdapter(view.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -103,7 +103,9 @@ public class TodoFragment extends Fragment {
     }
 
     private void loadContentData(final int currentPage) {
-//        loadingView.showLoading();
+        if(loadingView!=null) {
+            loadingView.showLoading();
+        }
         RetrofitClient.getInstance().getService(APIService.class).getToDoList(currentPage).enqueue(new ThorCallback<ToDoListResponse>() {
 
             @Override
@@ -130,12 +132,14 @@ public class TodoFragment extends Fragment {
                 }
                 xRefreshView.stopLoadMore();
                 xRefreshView.stopRefresh();
-//                loadingView.dismissLoading();
+                if(loadingView!=null) {
+                    loadingView.dismissLoading();
+                }
             }
 
             @Override
             public void onFailure(ErrorMessage errorMessage) {
-//                loadingView.dismissLoading();
+                loadingView.dismissLoading();
                 xRefreshView.stopLoadMore();
                 xRefreshView.stopRefresh();
             }

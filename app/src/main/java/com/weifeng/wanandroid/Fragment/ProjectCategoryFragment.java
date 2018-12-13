@@ -18,8 +18,6 @@ import com.weifeng.wanandroid.repositiry.callback.ThorCallback;
 import com.weifeng.wanandroid.repositiry.response.ProjectCategoryResponse;
 import com.weifeng.wanandroid.repositiry.response.ProjectResponse;
 import com.weifeng.wanandroid.widget.loading.AutoLoadingView;
-
-
 import retrofit2.Response;
 
 public class ProjectCategoryFragment extends Fragment {

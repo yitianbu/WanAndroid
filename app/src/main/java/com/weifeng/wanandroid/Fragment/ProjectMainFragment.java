@@ -36,7 +36,6 @@ public class ProjectMainFragment extends Fragment {
     private ViewPager viewPager;
     List<ProjectCategoryResponse.DataBean> dates;
     ProjectViewPagerAdapter viewPagerAdapter;
-    private int currentPos = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,22 +87,6 @@ public class ProjectMainFragment extends Fragment {
         viewPagerAdapter = new ProjectViewPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentPos = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     @Override
